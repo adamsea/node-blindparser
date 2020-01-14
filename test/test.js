@@ -4,6 +4,7 @@ var assert = require('assert');
 
 var parser = require('../lib/feed.js');
 
+var sampleFeeds = require('./sampleFeeds');
 
 vows.describe('bindparser').addBatch({
   'rss tests': {
@@ -216,5 +217,106 @@ vows.describe('bindparser').addBatch({
       assert.ok(docs.items.length > 0);
       assert.isNotNull(docs.items[0].date);
     }
+  },
+  'parse string tests': {
+    'atom test': {
+      topic: function() {
+        parser.parseString(sampleFeeds.atomFeed, this.callback);
+      },
+      'response is formatted correctly': function(err, docs) {
+        console.log(sampleFeeds)
+        assert.equal(docs.type, 'atom');
+        assert.isObject(docs.metadata);
+        assert.isString(docs.metadata.title);
+        assert.isString(docs.metadata.desc);
+        assert.isString(docs.metadata.url);
+        assert.isString(docs.metadata.id);
+        assert.isString(docs.metadata.update);
+      },
+      'entry is formatted correctly': function(err, docs) {
+        assert.isArray(docs.entry);
+        assert.ok(docs.entry.length > 0);
+        var entry = docs.entry[0];
+        assert.isString(entry.title);
+        assert.isString(entry.link);
+        assert.isString(entry.id);
+        assert.isString(entry.updated);
+        assert.isString(entry.summary);
+        assert.isString(entry.logo);
+        assert.isString(entry.icon);
+      },
+  
+    },
+    'mrss test': {
+      topic: function() {
+        parser.parseString(sampleFeeds.mrssFeed, this.callback);
+      },
+      'response is formatted correctly': function(err, docs) {
+        assert.equal(docs.type, 'rss');
+        assert.isObject(docs.metadata);
+        assert.isString(docs.metadata.title);
+        assert.isString(docs.metadata.desc);
+        assert.isString(docs.metadata.link);
+        assert.isArray(docs.metadata.image);
+      },
+      'items is formatted correctly': function(err, docs) {
+        assert.isArray(docs.items);
+        assert.ok(docs.items.length > 0);
+        var item = docs.items[0];
+        assert.isString(item.title);
+        assert.isString(item.desc);
+        assert.isString(item.link);
+        assert.isObject(item.media.thumbnail);
+        assert.isObject(item.media.title);
+      }
+  
+    },
+    'rss v1 test': {
+      topic: function() {
+        parser.parseString(sampleFeeds.rssV1Feed, this.callback);
+      },
+      'response is formatted correctly': function(err, docs) {
+        assert.equal(docs.type, 'rss');
+        assert.isObject(docs.metadata);
+        assert.isString(docs.metadata.title);
+        assert.isString(docs.metadata.desc);
+        assert.isArray(docs.metadata.image);
+        assert.isArray(docs.metadata.items);
+      },
+      'items is formatted correctly': function(err, docs) {
+        assert.isArray(docs.item);
+        assert.ok(docs.items.length > 0);
+        var item = docs.items.item;
+        assert.isString(item.title);
+        assert.isString(item.desc);
+        assert.isString(item.link);
+      }
+    },
+    'rss v2 test': {
+      topic: function() {
+        parser.parseString(sampleFeeds.rssV2Feed, this.callback);
+      },
+      'response is formatted correctly': function(err, docs) {
+        assert.equal(docs.type, 'rss');
+        assert.isObject(docs.metadata);
+        assert.isString(docs.metadata.title);
+        assert.isString(docs.metadata.desc);
+        assert.isString(docs.metadata.link);
+        assert.isArray(docs.metadata.image);
+      },
+      'items is formatted correctly': function(err, docs) {
+        assert.isArray(docs.items);
+        assert.ok(docs.items.length > 0);
+        var item = docs.items[0];
+        assert.isString(item.title);
+        assert.isString(item.desc);
+        assert.isString(item.link);
+        assert.isObject(item.enclosure)
+      }
+    },
+
   }
+
+
+
 }).export(module);

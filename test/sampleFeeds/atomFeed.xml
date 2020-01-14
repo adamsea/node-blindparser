@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title>Atom Feed</title>
+	<link href="http://example.org/"/>
+	<updated>2003-12-13T18:30:02Z</updated>
+	<author>
+		<name>John Doe</name>
+	</author>
+	<id>http://example.com/</id>
+
+	<entry>
+		<title>Test 1</title>
+		<link href="http://example.com/test1"/>
+		<id>http://example.com/test1</id>
+		<updated>2003-12-13T18:30:02Z</updated>
+		<summary>Test 1 Summary</summary>
+		<logo>https://dummyimage.com/600x400/000/fff</logo>
+    	<icon>https://dummyimage.com/600x400/000/fff</icon>
+	</entry>
+
+</feed>

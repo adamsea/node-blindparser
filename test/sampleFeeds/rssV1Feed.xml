@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<rdf:RDF>
+	<channel>
+		<title>RSS V1 Feed</title>
+		<link>http://example.com/rssv1</link>
+		<description>Test Description</description>
+
+		<image rdf:about="https://dummyimage.com/600x400/000/fff">
+			<url>https://dummyimage.com/600x400/000/fff</url>
+			<link>https://dummyimage.com</link>
+			<title>Example Image</title>
+		</image>
+		<items>
+			<item rdf:about="http://example.com/test1">
+				<title>Test 1</title>
+				<link>http://example.com/test1</link>
+				<description>Test 1 Description</description>
+			</item>
+		</items>
+	</channel>
+</rdf:RDF>
