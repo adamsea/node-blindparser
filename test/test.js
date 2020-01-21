@@ -216,5 +216,44 @@ vows.describe('bindparser').addBatch({
       assert.ok(docs.items.length > 0);
       assert.isNotNull(docs.items[0].date);
     }
+  },
+  'mrss tests': {
+    topic: function() {
+      parser.parseURL('https://www.connecteddesign.com/feed/', { strictSSL: false }, this.callback);
+    },
+    'response is formatted as rss': function(err, docs) {
+      assert.equal(docs.type, 'rss');
+      assert.isObject(docs.metadata);
+      assert.isArray(docs.items);
+    },
+    'response contains items': function(err, docs) {
+      assert.isArray(docs.items);
+      assert.ok(docs.items.length > 0);
+    },
+    'response items have titles': function(err, docs) {
+      assert.isArray(docs.items);
+      assert.ok(docs.items.length > 0);
+      assert.isNotNull(docs.items[0].title);
+    },
+    'response items have links': function(err, docs) {
+      assert.isArray(docs.items);
+      assert.ok(docs.items.length > 0);
+      assert.isNotNull(docs.items[0].link);
+    },
+    'response items have desc': function(err, docs) {
+      assert.isArray(docs.items);
+      assert.ok(docs.items.length > 0);
+      assert.isNotNull(docs.items[0].desc);
+    },
+    'response items have date': function(err, docs) {
+      assert.isArray(docs.items);
+      assert.ok(docs.items.length > 0);
+      assert.isNotNull(docs.items[0].date);
+    },
+    'response items has enclosure': function(err, docs) {
+      assert.isArray(docs.items);
+      assert.ok(docs.items.length > 0);
+      assert.isNotNull(docs.items[0].enclosure);
+    }
   }
 }).export(module);
